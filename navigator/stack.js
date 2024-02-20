@@ -1,4 +1,5 @@
-import { NavigationContainer } from "@react-navigation/native";
+import "react-native-gesture-handler";
+
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 const Stack = createNativeStackNavigator();
 
@@ -6,6 +7,7 @@ import OnboardingPage from "@screens/onboarding/onboarding";
 import LoginPage from "@screens/onboarding/login";
 import SignUpPage from "@/screens/onboarding/signup";
 import LoginorSignupPage from "@/screens/onboarding/loginorSignup";
+import HomeStack from "../navigator/homestack";
 
 function MyStack() {
   return (
@@ -28,6 +30,11 @@ function MyStack() {
       <Stack.Screen
         name="SignupPage"
         component={SignUpPage}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HomeStack"
+        component={HomeStack}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>

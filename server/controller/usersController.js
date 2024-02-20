@@ -34,3 +34,39 @@ exports.create = (req, res) => {
       .json({ message: "User created successfully", userId: results.insertId });
   });
 };
+
+exports.login = (req, res) => {
+  const { email, password } = req.body; // Assume these are provided by the client
+
+  // Basic validation (you should improve this with proper validation)
+  if (!email || !password) {
+    return res.status(400).json({ message: " email, and password" });
+  }
+  // Your SQL query to insert data
+  const query = "SELECT email, pwd, id ,name FROM user WHERE email = ?";
+
+  pool.query(query, [email], (err, results) => {
+    if (err) {
+      console.error("Error Querying user:", err);
+      return res.status(500).json({ message: "Error Querying user" });
+    }
+    // Check if any user was found
+    if (results.length > 0) {
+      // User found, now compare the provided password with the stored password
+      if (password === results[0].pwd) {
+        // Passwords match
+        res.json({
+          message: "Authentication successful",
+          userId: results[0].id,
+          userName: results[0].name,
+        });
+      } else {
+        // Passwords don't match
+        res.status(401).json({ message: "Authentication failed" });
+      }
+    } else {
+      // No user found with that email
+      res.status(404).json({ message: "User not found" });
+    }
+  });
+};
