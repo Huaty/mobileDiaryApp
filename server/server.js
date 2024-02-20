@@ -22,7 +22,13 @@ app.get("/", (req, res) => {
   res.send("Server Working");
 });
 
-app.use("/users", usersRoutes);
+try {
+  app.use("/users", usersRoutes);
+  console.log("Working");
+} catch (error) {
+  console.error(error);
+  res.status(500).json({ message: "An error occurred." });
+}
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {

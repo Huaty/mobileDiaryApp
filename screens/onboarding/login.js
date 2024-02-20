@@ -11,18 +11,41 @@ import {
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import CommonButton from "@common/buttons";
+import { useUser } from "../../function/userContext";
 const { width } = Dimensions.get("screen");
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [data, setData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await fetch("http://localhost:8080/users");
-      const text = await response.text();
-      console.log(text);
+      const response = await fetch("http://localhost:8080/users/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+      });
+      if (response.ok) {
+        // Successful response
+        const data = await response.json(); // Parse the data if needed
+        console.log("Success:", data);
+
+        navigation.navigate("HomeStack", {
+          screen: "HomePage", // Or directly to a relevant screen if desired
+          params: {
+            userId: data.userId,
+            userName: data.userName,
+          },
+        });
+      } else {
+        // Handle unsuccessful response
+        console.log("Request failed with status:", response.status);
+      }
     } catch (error) {
       console.log(error);
     }
