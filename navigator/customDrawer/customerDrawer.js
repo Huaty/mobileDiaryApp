@@ -21,6 +21,10 @@ function CustomDrawerContent(props) {
         label="Dashboard"
         onPress={() => props.navigation.navigate("DashboardPage")}
       />
+      <DrawerItem
+        label="Chat"
+        onPress={() => props.navigation.navigate("ChatPage")}
+      />
     </DrawerContentScrollView>
   );
 }
