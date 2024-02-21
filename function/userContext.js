@@ -1,12 +1,9 @@
 import React, { createContext, useState } from "react";
 
-const UserContext = createContext(null);
+const UserContext = createContext(null); // Create a context with a default value of null
 
 export const UserProvider = ({ children }) => {
-  const [userData, setUserData] = useState({
-    userId: null,
-    userName: null,
-  });
+  const [userData, setUserData] = useState(null);
 
   return (
     <UserContext.Provider value={{ userData, setUserData }}>

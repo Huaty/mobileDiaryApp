@@ -9,14 +9,15 @@ import {
   TextInput,
   Button,
 } from "react-native";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import CommonButton from "@common/buttons";
-import { useUser } from "../../function/userContext";
+import UserContext from "../../function/userContext";
 const { width } = Dimensions.get("screen");
 
 const LoginPage = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { userData, setUserData } = useContext(UserContext);
 
   const fetchData = async () => {
     try {
@@ -35,13 +36,9 @@ const LoginPage = ({ navigation }) => {
         const data = await response.json(); // Parse the data if needed
         console.log("Success:", data);
 
-        navigation.navigate("HomeStack", {
-          screen: "HomePage", // Or directly to a relevant screen if desired
-          params: {
-            userId: data.userId,
-            userName: data.userName,
-          },
-        });
+        setUserData(data);
+
+        navigation.navigate("HomeStack", { screen: "HomePage" });
       } else {
         // Handle unsuccessful response
         console.log("Request failed with status:", response.status);

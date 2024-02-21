@@ -10,14 +10,17 @@ import {
   TextInput,
   Button,
 } from "react-native";
+import { useContext } from "react";
 const { width } = Dimensions.get("screen");
 
-export default function HomePage({ route }) {
-  const { userId, userName } = route.params;
+import UserContext from "@/function/userContext";
+
+export default function HomePage() {
+  const { userData } = useContext(UserContext);
   return (
     <View style={style.container}>
-      <Text>User ID: {userId}</Text>
-      <Text>User ID: {userName}</Text>
+      <Text>User ID:{userData.userId} </Text>
+      <Text>User ID: </Text>
     </View>
   );
 }

@@ -1,11 +1,11 @@
-import { NavigationContainer } from "@react-navigation/native";
 import Stack from "./navigator/stack";
+import Homestack from "./navigator/homestack";
 import React from "react";
-
+import { UserProvider } from "./function/userContext";
 export default function App() {
   return (
-    <NavigationContainer>
+    <UserProvider>
       <Stack />
-    </NavigationContainer>
+    </UserProvider>
   );
 }
