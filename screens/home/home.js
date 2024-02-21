@@ -19,8 +19,7 @@ export default function HomePage() {
   const { userData } = useContext(UserContext);
   return (
     <View style={style.container}>
-      <Text>User ID:{userData.userId} </Text>
-      <Text>User ID: </Text>
+      <Text>Home</Text>
     </View>
   );
 }
