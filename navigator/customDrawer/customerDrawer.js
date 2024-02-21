@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useContext } from "react";
 import { View, Text, Image, StyleSheet } from "react-native";
 import { DrawerContentScrollView, DrawerItem } from "@react-navigation/drawer";
 
+import UserContext from "@/function/userContext";
 function CustomDrawerContent(props) {
-  const { userId, userName } = props;
+  const { userData } = useContext(UserContext);
   return (
     <DrawerContentScrollView {...props}>
       <View style={styles.userInfoContainer}>
         <View style={styles.profileCircle}>
           <Text style={styles.initials}>JD</Text>
         </View>
-        <Text style={styles.username}>{userName}</Text>
+        <Text style={styles.username}>{userData.userName}</Text>
       </View>
       <DrawerItem
         label="Home"
